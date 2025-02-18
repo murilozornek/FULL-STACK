@@ -1,0 +1,20 @@
+p{
+    font-size: 18pt;
+    color: darkblue;
+}
+
+p:hover{
+    color: brown;
+}
+
+#p1{
+    color:coral;
+}
+
+.tag_green{
+    color:green;
+}
+
+div p{
+    color:black;
+}
