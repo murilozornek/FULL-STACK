@@ -1,0 +1,34 @@
+p{
+    font-size: 15pt;
+}
+
+li{
+    font-size: 15pt;
+    color:black
+}
+
+a{
+    font-size: 15pt;
+    color: black;
+}
+body{
+    background-color:lightskyblue;
+}
+
+a:hover{
+    color:white;
+}
+
+.tag_red{
+    color:darkred
+}
+
+#p1{
+    font-size: 30pt;
+}
+
+#borderimg{
+    border: 10px solid 
+    padding: 15px 
+    border_image:url(border.png) 30stretch 
+}
