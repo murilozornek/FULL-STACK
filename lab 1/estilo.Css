@@ -28,7 +28,21 @@ a:hover{
 }
 
 #borderimg{
-    border: 10px solid 
-    padding: 15px 
-    border_image:url(border.png) 30stretch 
+    border: 10px solid; 
+}
+
+.img1{
+    width: fit-content;
+    margin:0 auto;
+    border-radius: 15px;
+}
+
+.map{
+    border: 10px solid; 
+    width: fit-content;
+    border-radius: 6px;
+}
+
+.borda{
+    border: 10px solid;
 }
