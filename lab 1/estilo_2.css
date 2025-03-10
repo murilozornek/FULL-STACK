@@ -39,6 +39,21 @@
     justify-content: center;
 }
 
+.subcabecario{
+    position: relative;
+    height: 75px;
+    background-color: lightblue;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 200px;
+
+    color:darkred;
+    font-size: 20pt;
+
+}
+
 .titulo_1{
     text-align: center;
 }
@@ -86,20 +101,26 @@ body{
 }
 .lista{
     position: relative;
-    height: 200px;
-    top: 3px;
-    width: 50%;
+    padding: 15px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 100;
+    width: fit-content;
+    border-radius: 5px;
     background-color: yellow;
 }
 
+.sites1{
+    color: darkred;
+}
 .rodape{
     position:relative;
     height: 200px;
     top: 3px;
     font-size: 30px;
     background-color: bisque;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
