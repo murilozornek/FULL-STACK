@@ -55,7 +55,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
+    align-items: center;
+
 }
 
 #img4{
@@ -66,7 +67,7 @@
     display: flex;
     flex-direction: column;
     justify-content:center;
-    align-content: center;
+    align-items:  center;
     height: 300px;
     width: 300px;
 }
