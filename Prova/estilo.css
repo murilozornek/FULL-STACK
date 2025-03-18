@@ -1,0 +1,67 @@
+.cabecario{
+    display: flex;
+    background-color:blue;
+    justify-content: flex-end;
+    align-content: flex-end;
+    padding-left: 100pt;
+    padding-right: 100pt;
+
+   
+}
+    .p1{
+        color: white;
+        margin: none;
+        font-size: 10pt;
+    }
+
+    .sbc{
+        background-color: white;
+        display: flex;
+        flex-wrap: wrap;
+        height:50pt
+    }
+
+    #img1{
+        height: 100pt;
+    }
+    .P2{
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     font-size: 10pt;
+    }
+    #S{
+        color: blue;
+  }
+
+  .locais{
+    background-color: orange;
+    width: 200pt;
+    margin: 10px;
+    color: white;
+   
+
+
+  }
+
+.img2{
+    height: 275px;
+    width: 275px;
+}
+
+.Secretaria{
+background-color: green;
+width: 200px;
+margin: 10px;
+color: white;
+
+}
+.demais{
+background-color: green;
+width: 300px;
+margin: 10px;
+color: white;
+}
+
+
+
+
+  
