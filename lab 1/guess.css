@@ -1,0 +1,15 @@
+body{
+    background-color:darkcyan;
+    
+}
+.texto{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 200px;
+
+}
+
