@@ -10,6 +10,31 @@ body{
     align-content: center;
     flex-wrap: wrap;
     width: 200px;
+    margin: 0 auto;
 
 }
 
+.input-resultado{
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+}
+
+.clique{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#g1{
+    padding: 5px;
+    width: 200px;
+}
+
+#teste1{
+    color: white;
+}
+
+p {
+    text-align: center;
+}
