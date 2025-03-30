@@ -12,12 +12,12 @@ if (num == r){
 }
 else if (num < r) {
 
-    document.getElementById("teste1").innerHTML = "Número Menor"
+    document.getElementById("teste1").innerHTML = "Número é maior"
     document.getElementById("teste1").style.setProperty("background-color", "red");
 }
 
 else if  (num>r){   
-      document.getElementById("teste1").innerHTML = "Número Maior "
+      document.getElementById("teste1").innerHTML = "Número é menor "
       document.getElementById("teste1").style.setProperty("background-color", "red");
 }
 
