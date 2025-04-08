@@ -1,0 +1,21 @@
+body{
+    background-color:bisque;
+}
+
+#canvas{
+    background-color:white;
+    margin: 10px;
+}
+
+#canvas2{
+    background-color:white;
+    margin: 10px;
+}
+.cvs{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 10px;
+
+}
