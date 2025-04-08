@@ -109,7 +109,6 @@ triangulo(ctx2,0,'salmon','transparent',147, 120, 110, 155, 185, 155)
 
 
 arco(ctx2,0,'yellow','transparent', 225,80,35,0,2)
-
 quadrado(ctx2,0,'deepskyblue','transparent',115,170,24,24)
 quadrado(ctx2,0,'deepskyblue','transparent',155,170,24,24)
 quadrado(ctx2,0,'rgb(92, 50, 31)','transparent',140,194,15,41)
