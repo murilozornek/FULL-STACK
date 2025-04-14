@@ -1,0 +1,14 @@
+body{
+    background-color: bisque;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 75px
+}
+#canvas1{
+    background-color: aquamarine;
+    border:black solid 2px;
+}
