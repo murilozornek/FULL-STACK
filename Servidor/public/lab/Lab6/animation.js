@@ -108,7 +108,7 @@ let bola = {
     raio:15,
     img: new Image(),
     desenhe: function(){
-        this.img.src = "../public2/bola.png";
+        this.img.src = "../public2/soccer-ball-realistic-png.webp";
         ctx.beginPath();
         ctx.drawImage(this.img, this.x, this.y, 2*this.raio, 2*this.raio);
         ctx.closePath();
