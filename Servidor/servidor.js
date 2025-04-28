@@ -61,15 +61,33 @@ app.get("/for_ejs",function(requisição,resposta){
     resposta.render("exemplo_for",{valor});
 })
 
-app.post("/cadastra", function(requisição,resposta){
-    var contas =[]
+app.post("/cadastra", function(requisição, resposta){
     let nome_usuario = requisição.body.nome_usuario;
     let senha = requisição.body.senha;
 
-    
+    usuarios.push({
+        nome_usuario: nome_usuario,
+        senha: senha
+    })
 
+    console.log(usuarios)   //para ver no terminal se a conta foi cadastrada e qual e nome de usuario e a senha
+
+    resposta.redirect("login")
    
-    
 
-    
+})
+
+app.post("/login", function(requisição,resposta){
+    let usuario = requisição.body.usuario;
+    let senha = requisição.body.senha;
+
+    let usuarios_encontrados = usuarios.find( Uc=> Uc.usuario === usuario && Uc.senha === senha)     // Uc é so um nome da variavel, poderia ser qualuqer outro nome .
+                                                                                                    //&& é igual o and no python 
+    if(usuarios_encontrados){
+        resposta.render("resultado_login", { nome: usuarios_encontrados.usuarios });
+    }                              
+    else{
+        resposta.send("Usuário ou senha inválidos ")
+    }
+
 })
