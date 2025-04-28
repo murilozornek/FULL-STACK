@@ -1,4 +1,4 @@
-usuarios  = []
+
 
 
 require("colors");
@@ -61,6 +61,10 @@ app.get("/for_ejs",function(requisição,resposta){
     resposta.render("exemplo_for",{valor});
 })
 
+
+
+usuarios  = []
+
 app.post("/cadastra", function(requisição, resposta){
     let nome_usuario = requisição.body.nome_usuario;
     let senha = requisição.body.senha;
@@ -72,7 +76,7 @@ app.post("/cadastra", function(requisição, resposta){
 
     console.log(usuarios)   //para ver no terminal se a conta foi cadastrada e qual e nome de usuario e a senha
 
-    resposta.redirect("login")
+    resposta.redirect("lab/lab8/login.html")
    
 
 })
@@ -81,10 +85,10 @@ app.post("/login", function(requisição,resposta){
     let usuario = requisição.body.usuario;
     let senha = requisição.body.senha;
 
-    let usuarios_encontrados = usuarios.find( Uc=> Uc.usuario === usuario && Uc.senha === senha)     // Uc é so um nome da variavel, poderia ser qualuqer outro nome .
+    let usuarios_encontrados = usuarios.find( Uc=> Uc.nome_usuario === usuario && Uc.senha === senha)     // Uc é so um nome da variavel, poderia ser qualuqer outro nome .
                                                                                                     //&& é igual o and no python 
     if(usuarios_encontrados){
-        resposta.render("resultado_login", { nome: usuarios_encontrados.usuarios });
+        resposta.render("resultado_login", { nome: usuarios_encontrados.nome_usuario });
     }                              
     else{
         resposta.send("Usuário ou senha inválidos ")
