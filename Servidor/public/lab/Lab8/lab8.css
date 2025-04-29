@@ -18,3 +18,23 @@ body{
    
 
 }
+
+.correto{
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+   
+}
+
+.incorreto{
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+   
+}
