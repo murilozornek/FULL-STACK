@@ -34,6 +34,8 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 var dbo = client.db("Murilo");
 var usuarios = dbo.collection("usuarios");
 var posts = dbo.collection("Posts")
+var usuarios_carro = dbo.collection("Usuarios_carro")
+var carros = dbo.collection("Carro")
 
 
 
@@ -61,6 +63,8 @@ app.get("/cadastrar", function (requisição,resposta){
 
 })
 
+//Exemplo de inserir elementos no Banco de Dados
+
 app.post("/cadastrar", function (requisição,resposta){
     let nome = requisição.body.nome; 
     let login = requisição.body.login;
@@ -84,6 +88,8 @@ app.post("/cadastrar", function (requisição,resposta){
     })
 
 })
+ 
+//Exemplo de Buscar informações no Banco de Dados
 
 app.post('/logar', function(requisição,resposta){
     let login = requisição.body.login;
@@ -113,9 +119,57 @@ app.post('/logar', function(requisição,resposta){
 })
 
 
+// Exemplo de Atualizar algo no Banco de dados
+
+app.post("/atualizar_senha", function(requisição,resposta){
+    let login = requisição.body.login;
+    let senha = requisição.body.senha;
+    let nova_senha = requisição.body.nova_senha;
+
+    let data={db_login:login, db_senha: senha}   //para buscar
+    let new_Data = { $set: {db_senha: nova_senha}} // para atualizar
+    
+    usuarios.updateOne(data,new_Data, function(err,result){
+        console.log(result);
+        if (result.modifiedCount == 0) {
+            resposta.render('resposta_login', {status: "Usuário/senha não encontrado!"})
+          }else if (err) {
+            resposta.render('resposta_login', {status: "Erro ao atualizar usuário!"})
+          }else {
+            resposta.render('resposta_login', {status: "Usuário atualizado com sucesso!"})        
+          };
+        });
+    
+    })
+
+
+    //Exemplo de Remover Usuario
+
+app.post("/remover_usuario", function(requisição,resposta){
+    let login = requisição.body.login;
+    let senha = requisição.body.senha;
+
+    let data={db_login:login, db_senha: senha} 
+
+    usuarios.deleteOne(data, function(err, result){
+        console.log(result)
+        if (result.modifiedCount == 0) {
+            resposta.render('resposta_login', {status: "Usuário/senha não encontrado!"})
+          }else if (err) {
+            resposta.render('resposta_login', {status: "Erro ao remover usuário!"})
+          }else {
+            resposta.render('resposta_login', {status: "Usuário removido com sucesso!"})        
+          };
+        });
+
+    
+    })
+
+
    
 
 
+//Exemplo de for no ejs
 
 app.get("/for_ejs",function(requisição,resposta){
     let valor = requisição.query.valor;
@@ -194,3 +248,25 @@ app.post("/criar_post", function(requisição,resposta){
         }
     })
 })
+
+
+
+app.post("/cadastrar_usuario_carro", function(requisição,resposta){
+
+    let nome = requisição.body.nome
+    let nome_usuario = requisição.body.nome_usuario
+    let senha = requisição.body.senha
+
+    var data= {db_nome: nome, db_nome_usuario: nome_usuario, db_senha: senha}
+    usuarios_carro.insertOne(data,function(err){
+        if(err){
+            resposta.render('cadastro_usuario_carro', {status: "Erro ao cadastrar usuário"})
+        }else {
+          resposta.render('cadastro_usuario_carro', {status: "Usuário cadastrado com sucesso!"})     
+        }
+    })
+})
+
+
+
+
