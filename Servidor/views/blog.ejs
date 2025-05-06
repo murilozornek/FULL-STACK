@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Blog</title>
+    <meta charset="UTF-8">
+    <link href="estilo.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="criar_post">
+        <h1> <input type="button" value="Cria Post" onclick="window.location.href ='/lab/lab9/cadastrar_post.html'"> </h1>
+
+
+    <% if(posts.length == 0){ %>
+        <p>Nenhum post encontrado</p>
+
+    <%}else{ %>
+        <% posts.forEach(function (post) {%>
+            <div class="borda_post">
+                <div class="mostrar_post">
+
+                    <h2 id="t1"><%= post.db_titulo %></h2>
+                    <p id="p1"><%= post.db_resumo %></p>
+                    <p id="p2"><%= post.db_conteudo %></p>
+                </div>
+            </div>
+
+         <% }); %>
+    <% } %>
+
+
+    </div>
+    
+   
+</body>
+</html>

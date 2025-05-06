@@ -3,8 +3,56 @@ body{
 }
 
 div{
-   background-color:aquamarine;
+   
    padding: 10px;
    margin: 10px;
    display: inline;
 }
+
+.login{
+   background-color: bisque;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.criar_post{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.borda_post{
+   background-color: white;
+   border: 2px solid black;
+   border-radius: 8px;
+   width: 600px;
+   padding: 5px;
+  
+   padding-top: 0px;
+   padding-bottom: 0px;
+   margin-top: 2px;
+
+}
+.mostrar_post{
+   padding: 0;
+   margin: 0;
+
+}
+#t1{
+   margin: 0;
+}
+#p1{
+   margin: 0;
+   margin-top: 2px;
+}
+#p2{
+   margin:0;
+   margin-top: 2px;
+
+}
+
+
+/* margin-bottom: 10px; */

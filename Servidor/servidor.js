@@ -1,6 +1,4 @@
 
-
-
 require("colors");
 var http = require("http");
 var express = require("express");
@@ -20,7 +18,7 @@ server.listen(80);
 
 console.log("Servidor rodando...".rainbow) 
 
-// //Exemplo de Bancos de dados 
+//Exemplo de Bancos de dados 
 var mongodb = require("mongodb");
 const { INSPECT_MAX_BYTES } = require("buffer");
 
@@ -35,6 +33,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 // Exemplo de Banco de dados
 var dbo = client.db("Murilo");
 var usuarios = dbo.collection("usuarios");
+var posts = dbo.collection("Posts")
 
 
 
@@ -125,18 +124,16 @@ app.get("/for_ejs",function(requisição,resposta){
 
 
 
- var usuarios_cadastrados  = 
+ var usuarios_cadastrados  = []
 
 app.post("/cadastra", function(requisição, resposta){
     let nome_usuario = requisição.body.nome_usuario;
     let senha = requisição.body.senha;
 
-    usuarios_cadastrados.push({
-        nome_usuario: nome_usuario,
-        senha: senha
-    })
+    usuarios_cadastrados.push({nome:nome_usuario,senha: senha})
 
-    console.log(usuarios)   //para ver no terminal se a conta foi cadastrada e qual e nome de usuario e a senha
+
+    console.log(usuarios_cadastrados)   //para ver no terminal se a conta foi cadastrada e qual e nome de usuario e a senha
 
     resposta.redirect("lab/lab8/login.html")
    
@@ -144,21 +141,56 @@ app.post("/cadastra", function(requisição, resposta){
 })
 
 app.post("/login", function(requisição,resposta){
-    let usuario = requisição.body.usuario;
-    let senha = requisição.body.senha;
+    let user_name = requisição.body.usuario;
+    let password = requisição.body.senha;
 
-    for( var i =0 ; i < usuarios_cadastrados.length; i++){
-        if(usuario == usuarios_cadastrados[i],[nome_usuario] && senha == usuarios_cadastrados[i][senha]){
-            usuarios_encontrados = true;
-            break;
-        }
+    let login_valido = false 
+
+    for(let i = 0; i < usuarios_cadastrados.length;i++){
+        if(usuarios_cadastrados[i].nome_usuario === user_name && usuarios_cadastrados[i].senha === password){
+            login_valido = true;
+            break ;
     }
 
-    resposta.render("resultado_login",{usuario,senha,usuarios_cadastrados})
-
+    }
+    if (login_valido){
+        resposta.render("resultado_login.ejs")
+    }else{
+        resposta.send("Usuario ou senha incorretos!!")
+    }
+        
+        
 })
-
   
                                                                                                    
 
 
+
+app.get("/blog",function(requisição,resposta){
+
+    posts.find().toArray(function(err,lista_posts){
+        if (err){
+            resposta.send("Erro ao buscar posts")
+        }else{
+            resposta.render("blog",{posts: lista_posts})
+
+        }
+    })
+   
+})
+
+app.post("/criar_post", function(requisição,resposta){
+
+    let titulo= requisição.body.Titulo
+    let resumo = requisição.body.Resumo
+    let conteudo = requisição.body.Conteudo
+
+    var data ={db_titulo:titulo, db_resumo: resumo, db_conteudo: conteudo}
+    posts.insertOne(data,function(err){
+        if (err){
+            resposta.send("Erro ao salvar o post!!")
+        }else {
+            resposta.redirect("lab/lab9/salvo_sucesso.html")
+        }
+    })
+})
