@@ -11,10 +11,8 @@ app.use(bodyParser.json())
 app.set('view engine', 'ejs')
 app.set('views', './views');
 
-
 var server = http.createServer(app);
 server.listen(80);
-
 
 console.log("Servidor rodando...".rainbow) 
 
@@ -28,18 +26,12 @@ const MongoClient = mongodb.MongoClient;
 const uri = 'mongodb+srv://zornekmurilo:161002@murilo.yen2yak.mongodb.net/?retryWrites=true&w=majority&appName=Murilo'
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
-
-
 // Exemplo de Banco de dados
 var dbo = client.db("Murilo");
 var usuarios = dbo.collection("usuarios");
 var posts = dbo.collection("Posts")
 var usuarios_carro = dbo.collection("Usuarios_carro")
 var carros = dbo.collection("Carro")
-
-
-
-
 //métodos e action 
 
 app.get("/inicio", function(requisição,resposta){ 
@@ -82,13 +74,8 @@ app.post("/cadastrar", function (requisição,resposta){
         }else{
             resposta.render("resposta",{status:"sucesso",nome,login,senha,nasc});
         }
-
-        
-
     })
-
 })
- 
 //Exemplo de Buscar informações no Banco de Dados
 
 app.post('/logar', function(requisição,resposta){
@@ -117,8 +104,6 @@ app.post('/logar', function(requisição,resposta){
     })    
 
 })
-
-
 // Exemplo de Atualizar algo no Banco de dados
 
 app.post("/atualizar_senha", function(requisição,resposta){
@@ -141,9 +126,7 @@ app.post("/atualizar_senha", function(requisição,resposta){
         });
     
     })
-
-
-    //Exemplo de Remover Usuario
+//Exemplo de Remover Usuario
 
 app.post("/remover_usuario", function(requisição,resposta){
     let login = requisição.body.login;
@@ -161,23 +144,13 @@ app.post("/remover_usuario", function(requisição,resposta){
             resposta.render('resposta_login', {status: "Usuário removido com sucesso!"})        
           };
         });
-
-    
     })
-
-
-   
-
-
 //Exemplo de for no ejs
 
 app.get("/for_ejs",function(requisição,resposta){
     let valor = requisição.query.valor;
     resposta.render("exemplo_for",{valor});
 })
-
-
-
  var usuarios_cadastrados  = []
 
 app.post("/cadastra", function(requisição, resposta){
@@ -186,11 +159,9 @@ app.post("/cadastra", function(requisição, resposta){
 
     usuarios_cadastrados.push({nome:nome_usuario,senha: senha})
 
-
     console.log(usuarios_cadastrados)   //para ver no terminal se a conta foi cadastrada e qual e nome de usuario e a senha
 
     resposta.redirect("lab/lab8/login.html")
-   
 
 })
 
@@ -212,14 +183,9 @@ app.post("/login", function(requisição,resposta){
     }else{
         resposta.send("Usuario ou senha incorretos!!")
     }
-        
-        
+
 })
-  
-                                                                                                   
-
-
-
+                                        
 app.get("/blog",function(requisição,resposta){
 
     posts.find().toArray(function(err,lista_posts){
@@ -227,10 +193,8 @@ app.get("/blog",function(requisição,resposta){
             resposta.send("Erro ao buscar posts")
         }else{
             resposta.render("blog",{posts: lista_posts})
-
         }
     })
-   
 })
 
 app.post("/criar_post", function(requisição,resposta){
@@ -250,7 +214,7 @@ app.post("/criar_post", function(requisição,resposta){
 })
 
 
-
+// Lab 10
 app.post("/cadastrar_usuario_carro", function(requisição,resposta){
 
     let nome = requisição.body.nome
@@ -260,13 +224,46 @@ app.post("/cadastrar_usuario_carro", function(requisição,resposta){
     var data= {db_nome: nome, db_nome_usuario: nome_usuario, db_senha: senha}
     usuarios_carro.insertOne(data,function(err){
         if(err){
-            resposta.render('cadastro_usuario_carro', {status: "Erro ao cadastrar usuário"})
+            resposta.render('cadastro_usuario_carro.ejs', {status: "Erro ao cadastrar usuário"})
         }else {
-          resposta.render('cadastro_usuario_carro', {status: "Usuário cadastrado com sucesso!"})     
+          resposta.render('cadastro_usuario_carro.ejs', {status: "Usuário cadastrado com sucesso!"})     
         }
     })
 })
 
+app.post("/login_usuario_carro", function(requisição,resposta){
 
+    let data = {db_nome_usuario: requisição.body.login , db_senha: requisição.body.senha}
 
+    usuarios_carro.find(data).toArray(function(err,item){
+        console.log(item)
+        if(item.length == 0){
+            resposta.render("resposta_login.ejs",{status: "Usuarios não encontrado"})
+        }else if (err){
+            resposta.render("resposta_login.ejs",{status:"Erro ao logar usuario"})
+        }else{
+            resposta.render("resposta_login.ejs",{status:"Login realizado com sucesso"})
+        }
+    })
+})
 
+app.post("/cadastrar_carro",function(requisição,resposta){
+    let marca = requisição.body.marca
+    let modelo = requisição.body.modelo
+    let ano = requisição.body.ano
+    let qtd_disponivel = requisição.body.qtd_disponivel
+
+    var data = {db_marca: marca, db_modelo: modelo, db_ano: ano, db_qtd_disponivel: qtd_disponivel}
+    carros.insertOne(data,function(err){
+        if(err){
+            resposta.render("cadastro_carro.ejs", {status:"Erro ao cadastrar o veiculo"})
+        }else{
+            resposta.render("cadastro_carro.ejs",{status:"Veiculo cadastrado com sucesso!"})
+        }
+    })
+
+})
+
+app.get("/lista_carro", function(requisição,resposta){
+    resposta.render("lista_carro.ejs")
+})
