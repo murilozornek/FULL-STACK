@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de carro</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    
+    <div class="lista_carro">
+        <h1>Carros Disponiveis:</h1>
+        
+    <% for (var i =0; i < carros.length; i ++){%>
+        <div class="carros_disponiveis">
+            <p>Marca: <%= carros[i].db_marca %></p>
+            <p>Modelo: <%= carros[i].db_modelo %></p>
+            <p>Ano: <%= carros[i].db_ano %></p>
+            <p>Quantidade disponivel: <%= carros[i].db_qtd_disponivel %></p>
+            <br>
+        </div>
+    <%}%>
+
+
+    </div>
+
+    
+</body>
+</html>

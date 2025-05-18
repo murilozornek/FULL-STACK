@@ -51,8 +51,25 @@ div{
 #p2{
    margin:0;
    margin-top: 2px;
+}
+
+.lista_carro{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
+.carros_disponiveis{
+   background-color: white;
+   border: 1px solid black;
+   border-radius: 10px;
+   width: 500px;
+   padding: 4px;
+
+   padding-bottom: 0px;
+   padding-top: 0px;
+   margin: 5px;
 
 }
 
-
-/* margin-bottom: 10px; */

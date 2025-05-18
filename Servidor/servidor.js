@@ -31,7 +31,8 @@ var dbo = client.db("Murilo");
 var usuarios = dbo.collection("usuarios");
 var posts = dbo.collection("Posts")
 var usuarios_carro = dbo.collection("Usuarios_carro")
-var carros = dbo.collection("Carro")
+var carros = dbo.collection("carros")
+
 //métodos e action 
 
 app.get("/inicio", function(requisição,resposta){ 
@@ -238,9 +239,9 @@ app.post("/login_usuario_carro", function(requisição,resposta){
     usuarios_carro.find(data).toArray(function(err,item){
         console.log(item)
         if(item.length == 0){
-            resposta.render("resposta_login.ejs",{status: "Usuarios não encontrado"})
+            resposta.render("falha_login.ejs",{status: "Usuarios não encontrado"})
         }else if (err){
-            resposta.render("resposta_login.ejs",{status:"Erro ao logar usuario"})
+            resposta.render("falha_login.ejs",{status:"Erro ao logar usuario"})
         }else{
             resposta.render("resposta_login.ejs",{status:"Login realizado com sucesso"})
         }
@@ -264,6 +265,72 @@ app.post("/cadastrar_carro",function(requisição,resposta){
 
 })
 
-app.get("/lista_carro", function(requisição,resposta){
-    resposta.render("lista_carro.ejs")
+app.post("/remover_carro", function(requisição,resposta){
+
+    let data ={db_marca: requisição.body.marca, db_modelo: requisição.body.modelo, db_ano: requisição.body.ano, db_qtd_disponivel: requisição.body.qtd_disponivel}
+    carros.deleteOne(data,function(err,result){
+        console.log(result)
+        if(result.deletedCount == 0){
+            resposta.render("remover_carro.ejs",{status:"Carro não encontrado"})
+
+        }else if(err){
+            resposta.render("remover_carro.ejs",{status:"Erro ao remover carro"})
+        }else{
+            resposta.render("remover_carro.ejs",{status:"Carro removido com sucesso"})
+        }
+    })
 })
+
+
+
+app.post("/atualizar_carro", function(requisição,resposta){
+
+    let data = {db_marca: requisição.body.marca, db_modelo:requisição.body.modelo, db_ano:requisição.body.ano}
+    let Newdata= {$set:{db_qtd_disponivel:requisição.body.Newqtd_disponivel}}
+    carros.updateOne(data,Newdata,function(err,result){
+        console.log(result)
+        if(result.modifiedCount == 0){
+            resposta.render("atualizar_carro.ejs",{status:"Carro não encontrado"})
+        }else if(err){
+            resposta.render("atualizar_carro.ejs",{status:"Erro ao atualizar o carro"})
+        }else{
+            resposta.render("atualizar_carro.ejs",{status:"Carro atualizado com sucesso!"})
+        }
+    })
+
+})
+
+app.post("/vender_carro", function(requisição,resposta){
+    let data= {db_marca: requisição.body.marca, db_modelo: requisição.body.modelo, db_ano: requisição.body.ano}
+    carros.find(data).toArray(function(err,item){
+        if(item.length == 0){
+            resposta.render("vender_carro.ejs",{status:"Carro não encontrado"})
+        }else if(err){
+            resposta.render("vender_carro.ejs",{status:"Erro ao vender carro"})
+        }else{
+            if(item[0]['db_qtd_disponivel'] >0){
+                new_qtd_disponivel = item[0]['db_qtd_disponivel'] -1 
+                let Newdata ={$set:{db_qtd_disponivel: new_qtd_disponivel}}
+                carros.updateOne(data,Newdata,function(err,result){
+                    if(result.modifiedCount ==0){
+                        resposta.render("vender_carro.ejs",{status:"Carro não encontrado"})
+                    }else if(err){
+                        resposta.render("vender_carro.ejs", {status:"Erro ao vender carro"})
+                    }else{
+                        resposta.render("vender_carro.ejs",{status:"Carro vendido com sucesso"})
+                    }
+                })
+            }else{
+                resposta.render("vender_carro",{status:"Não foi possível realizar a venda, pois o carro está esgotado"})
+            }
+            }
+    })
+})
+
+app.get("/lista_carros", function(requisição,resposta){
+    carros.find().toArray(function(err,result){
+        resposta.render("lista_carro.ejs",{carros:result})
+    })
+
+})
+
